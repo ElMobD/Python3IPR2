@@ -22,25 +22,58 @@ app.layout = html.Div(
             id='statistique-container',
             style={'flex': '5', 'background-color': 'pink'},
             children=[
-               
+               html.Div([
+                    dcc.Location(id='url', refresh=False),
+                    html.Div(id='page-content', style={'backgroundColor': '#f4f4f4', 'padding': '20px'})
+                ])
             ]
         ),
         html.Div(
             id='button-container',
             style={'flex':'1','width': '20%', 'display': 'flex', 'align-items': 'center', 'justify-content': 'space-between'},
             children=[
-                html.Button(
-                    'Histogramme',
-                    style={}
+                dcc.Link(
+                    html.Button(
+                        'Histogramme',
+                        id='button-histogramme'
+                    ),
+                    href='/page-1',
                 ),
-                html.Button(
-                    'Map',
-                    style={}
+                dcc.Link(
+                    html.Button(
+                        'Map',
+                        id='button-map'
+                    ),
+                    href='/page-2'
                 )
             ]
         )
     ]
 )
+
+# Layout de la page 1
+layout_page_1 = html.Div([
+    html.H1('Page 1'),
+    html.P('Contenu de la page 1...')
+])
+
+# Layout de la page 2
+layout_page_2 = html.Div([
+    html.H1('Page 2'),
+    html.P('Contenu de la page 2...')
+])   
+
+@app.callback(Output('page-content', 'children'), [Input('url', 'pathname')])
+
+def display_page(pathname):
+    if pathname is None or pathname == '/':
+        return layout_page_1
+    elif pathname == '/page-1':
+        return layout_page_1
+    elif pathname == '/page-2':
+        return layout_page_2
+    else:
+        return '404 Page not found'    
     
 def createCsvFile(apiURL):
     #Création du fichier CSV via le lien fourni au dessus
