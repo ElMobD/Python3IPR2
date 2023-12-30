@@ -51,6 +51,18 @@ app.layout = html.Div(
     ]
 )
 
+
+@app.callback(Output('page-content', 'children'), [Input('url', 'pathname')])
+def display_page(pathname):
+    if pathname is None or pathname == '/':
+        return layout_page_1
+    elif pathname == '/page-1':
+        return layout_page_1
+    elif pathname == '/page-2':
+        return layout_page_2
+    else:
+        return '404 Page not found'    
+
 # Layout de la page 1
 layout_page_1 = html.Div([
     html.H1('Page 1'),
@@ -62,21 +74,18 @@ layout_page_2 = html.Div([
     html.H1('Page 2'),
     html.P('Contenu de la page 2...')
 ])   
+def createHistogramme():
+    dataFrame = pd.read_csv("data/dynamicData.csv", sep = ',')
+    result = dataFrame.loc[
+        (dataFrame['State'] == 'United States') 
+        & (dataFrame['Sex'] == 'All Sexes') 
+        & (dataFrame['Group'] == 'By Total')]
+    print(result)
 
-@app.callback(Output('page-content', 'children'), [Input('url', 'pathname')])
-
-def display_page(pathname):
-    if pathname is None or pathname == '/':
-        return layout_page_1
-    elif pathname == '/page-1':
-        return layout_page_1
-    elif pathname == '/page-2':
-        return layout_page_2
-    else:
-        return '404 Page not found'    
+def createMap():
+    print("Création de la map")
     
 def createCsvFile(apiURL):
-    #Création du fichier CSV via le lien fourni au dessus
     getCsvByLink.get_and_save_csv(apiURL, "data/dynamicData.csv") 
     
 def launchApp():
@@ -84,7 +93,8 @@ def launchApp():
 
 def main():
     createCsvFile("https://data.cdc.gov/api/views/9bhg-hcku/rows.csv?accessType=DOWNLOAD")
-    launchApp()
+    createHistogramme()
+    #launchApp()
 
 if __name__ == "__main__":
     main()
