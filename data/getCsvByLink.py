@@ -1,9 +1,13 @@
 import requests
 import csv
 from io import StringIO
+import os
 
 def get_and_save_csv(api_url, destination_path):
-    response = requests.get(api_url, stream=True)
+    if os.path.exists(destination_path):
+        return
+    
+    response = requests.get(api_url, stream=True)    
     
     if response.status_code == 200:
         # Utilisez StringIO pour lire le texte CSV dans un objet file-like
