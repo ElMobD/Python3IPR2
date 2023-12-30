@@ -9,12 +9,15 @@ from dash.dependencies import Input, Output
 from data import getCsvByLink
 from function import function
 import plotly.express as px
+import plotly.graph_objects as go
+import json
 
 #Variable Globale
 app = dash.Dash(__name__) 
 app.config.suppress_callback_exceptions = True
 CsvDataFrame = pd.read_csv("data/dynamicData.csv", sep = ',')
 all_states = function.getAllState(CsvDataFrame)
+
 
 #Layout principale du DashBoard
 app.layout = html.Div(
@@ -63,8 +66,23 @@ def createHistogramme(filter):
     return fig
 
 def createMap():
-    print("Création de la map")
-    
+    df = function.createMapDf(CsvDataFrame)
+    print(df)
+    fig = go.Figure(data=go.Choropleth(
+            locations=df['code'],
+            z=df['Total Deaths'].astype(float),
+            locationmode='USA-states',
+            colorscale='Reds',
+            autocolorscale=False,
+            marker_line_color='white', # line markers between states
+            colorbar_title="Nombre de morts"
+        ))  
+    fig.update_layout(
+        title_text = 'Nombre de morts total par état de 2020 à septembre 2023',
+        geo_scope='usa', # limite map scope to USA
+    )   
+    return fig
+
 
 @app.callback(Output('page-content', 'children'), [Input('url', 'pathname')])
 def display_page(pathname):
@@ -80,6 +98,7 @@ def display_page(pathname):
 @app.callback(Output('histogram', 'figure'),[Input('filter', 'value')])
 def update_histogram(selected_state):
     return createHistogramme(selected_state)
+
 
 # Layout de la page 1
 layout_page_1 = html.Div(
@@ -100,10 +119,11 @@ layout_page_1 = html.Div(
 )
 
 # Layout de la page 2
-layout_page_2 = html.Div([
-    html.H1('Page 2'),
-    html.P('Contenu de la page 2...')
-])   
+layout_page_2 = html.Div(
+    children=[
+        dcc.Graph(figure=createMap())
+    ]
+)   
 
 
 def createCsvFile(apiURL):
@@ -120,6 +140,3 @@ if __name__ == "__main__":
     main()
 
 
-
-#HISTOGRAME abcise => âge & ordonnée => nombre morts totale et nombre mort covid
-#MAP 
