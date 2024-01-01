@@ -4,20 +4,20 @@ from io import StringIO
 import os
 
 def get_and_save_csv(api_url, destination_path):
-    if os.path.exists(destination_path):
+    if os.path.exists(destination_path): #si le fichier existe déjà, on ne le télécharge pas
         return
     
     response = requests.get(api_url, stream=True)    
     
     if response.status_code == 200:
-        # Utilisez StringIO pour lire le texte CSV dans un objet file-like
+        # Créez un objet StringIO contenant le texte brut de la réponse
         csv_data = StringIO(response.text)
 
-        # Utilisez le module CSV pour lire les données depuis StringIO et les écrire dans un fichier CSV local
+        # Utilisez le module csv pour lire ce fichier StringIO dans un objet DictReader
         with open(destination_path, 'w', newline='') as csv_file:
             csv_writer = csv.writer(csv_file)
             
-            # Écrivez chaque ligne du CSV dans le fichier
+            ## Pour chaque ligne du fichier CSV distant...
             for row in csv.reader(csv_data):
                 csv_writer.writerow(row)
     else:
