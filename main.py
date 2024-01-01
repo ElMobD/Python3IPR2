@@ -6,10 +6,11 @@ import pandas as pd
 import dash
 from dash import dcc, html
 from dash.dependencies import Input, Output
-from data import getCsvByLink #import de la fonction getCsvByLink du fichier getCsvByLink.py
-from function import function #import des fonctions créees dans le fichier function.py
 import plotly.express as px
 import plotly.graph_objects as go
+from data import getCsvByLink #import de la fonction getCsvByLink du fichier getCsvByLink.py
+from function import function #import des fonctions créees dans le fichier function.py
+
 
 
 #Variable Globale
@@ -161,7 +162,7 @@ def update_map(number):
     return createMap(number)
 
 # Lancement du serveur
-if __name__ == "__main__":
-    app.run_server(debug=True)
+#if __name__ == "__main__":
+    #app.run_server(debug=True)
 
 

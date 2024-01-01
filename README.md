@@ -29,4 +29,4 @@ RAPPORT D'ANALYSE
 
 Les données appartiennent à : https://data.cdc.gov/
 
-Nous avons choisi de faire ce projet sur la COVID-19, 
+Le sujet traitée est le nombre de mort dans tous les États-Unis en fonction de soit la COVID-19, soit  
