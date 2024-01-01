@@ -10,9 +10,23 @@ def getAllState(CsvDataFrame):
     all_states = CsvDataFrame['State'].unique()
     return all_states
 
-def createMapDf(df):
+def getSliderValueName(number):
+    if number == 1:
+        return 'Total Deaths'
+    elif number == 2:
+        return 'COVID-19 Deaths'
+    elif number == 3:
+        return 'Pneumonia Deaths'
+    elif number == 4:
+        return 'Pneumonia and COVID-19 Deaths'
+    elif number == 5:
+        return 'Influenza Deaths'
+    elif number == 6:
+        return 'Pneumonia, Influenza, or COVID-19 Deaths'
+
+def createMapDf(df, filter):
     result = df.loc[(df['Group'] == 'By Total') & (df['State'] != 'United States') & (df['Sex'] == 'All Sexes') & (df['Age Group'] == 'All Ages')]
-    columnToKeep = ['State','Total Deaths']
+    columnToKeep = ['State',filter]
     result = result[columnToKeep]
     etats = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia',
              'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
