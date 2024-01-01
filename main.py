@@ -78,8 +78,7 @@ def createMap(number):
             z=df[filter].astype(float),
             locationmode='USA-states',
             colorscale='Reds',
-            autocolorscale=False,
-            marker_line_color='white', 
+            marker_line_color='black', 
             colorbar_title="Nombre de morts"
         ))  
     fig.update_layout(
@@ -162,7 +161,7 @@ def update_map(number):
     return createMap(number)
 
 # Lancement du serveur
-#if __name__ == "__main__":
-    #app.run_server(debug=True)
+if __name__ == "__main__":
+    app.run_server(debug=True)
 
 
