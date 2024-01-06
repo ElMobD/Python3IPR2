@@ -6,7 +6,7 @@ Données utilisées :
     utilisation de code d'état d'amérique
 
 
-USER GUIDE
+#USER GUIDE
 
 Prérequis : Installation de python sur votre machine et du module pip
 
@@ -23,7 +23,7 @@ Prérequis : Installation de python sur votre machine et du module pip
 Quand l'application se lance, je créée le fichier CSV à partir de ce lien : https://data.cdc.gov/api/views/9bhg-hcku/rows.csv?accessType=DOWNLOAD
 La première fois que l'application se lance, cela peut prendre du temps. Mais une fois le fichier CSV créer dans le projet, l'applicaiton ne prendra normalement plus du temps au lancement. 
 
-DEVELOPPER GUIDE
+#DEVELOPPER GUIDE
 
 - Le projet contient un fichier main.py qui doit être exécuter pour lancer l'application Dash. 
 - Il contient un fichier ReadME.md
@@ -33,7 +33,7 @@ DEVELOPPER GUIDE
 - Il contient un dossier function qui contient un fichier function.py qui contient plusieurs fonction utilisé dans tous le projet (C'est que sont créé les dataFrames qui sont utilisé pour faire les figures)
 
 
-RAPPORT D'ANALYSE
+#RAPPORT D'ANALYSE
 
 Les données appartiennent à : https://data.cdc.gov/
 
